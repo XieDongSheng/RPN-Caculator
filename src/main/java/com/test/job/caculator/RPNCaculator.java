@@ -113,7 +113,7 @@ public class RPNCaculator implements Caculator {
         if (result != null) {
             numberStack.push(result);
             if (!isUndo) {
-                if(firstOperand == 0.0 && operatorString.equals("*"))
+                if(firstOperand == ZERO && operatorString.equals(Context.MULTIPLICATION))
                 {
                 		operandStack.push(new Operand(Context.getOperator(operatorString), secondOperand, true));
                 }
