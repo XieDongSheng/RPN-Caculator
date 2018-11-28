@@ -4,8 +4,8 @@ import java.io.Console;
 import java.text.DecimalFormat;
 import java.util.Stack;
 
-import com.test.job.caculator.RPNException;
 import com.test.job.caculator.RPNCaculator;
+import com.test.job.caculator.RPNException;
 
 public class Executor {
 

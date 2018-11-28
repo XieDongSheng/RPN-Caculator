@@ -7,6 +7,7 @@ public abstract class Operator {
 	  	private String symbol;
 	    private String opposite;
 	    private int numOfOperand;
+	    private boolean zeroUndo = false;
 
 	    Operator(String symbol, String opposite, int operandsNumber) {
 	        this.symbol = symbol;
@@ -27,5 +28,14 @@ public abstract class Operator {
 	    public int getOperandsNumber() {
 	        return numOfOperand;
 	    }
-
+	    
+	    public void setZeroUndo(boolean isZeroUndo) {
+	    		zeroUndo = isZeroUndo;
+	    }
+	    
+	    public boolean isZeroUndo()
+	    {
+	    		return zeroUndo;
+	    }
+	   
 }

@@ -16,6 +16,10 @@ import com.test.job.operator.Undo;
 
 public class Context {
 	
+    public static String CLEAR = "clear";
+    public static String UNDO = "undo";
+    public static String MULTIPLICATION = "*";
+	
     public static final Map<String, Operator> OPERATOR_MAP = new HashMap<String, Operator>();
     
     public static Operator getOperator(String value) {

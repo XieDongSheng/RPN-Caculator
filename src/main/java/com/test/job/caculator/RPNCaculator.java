@@ -14,6 +14,7 @@ import com.test.job.executor.Context;
 import com.test.job.operator.Operand;
 import com.test.job.operator.Operator;
 
+
 /**
  * @author Xie Forest
  *
@@ -24,8 +25,7 @@ public class RPNCaculator implements Caculator {
     private Stack<Operand> operandStack = new Stack<Operand>();
     private Operand  NO_OPERAND = null;
     private int currentIndex = 0;
-    private static String CLEAR = "clear";
-    private static String UNDO = "undo";
+    private static double ZERO = 0;
 
 
     private Double parseDouble(String str) {
@@ -91,12 +91,12 @@ public class RPNCaculator implements Caculator {
             throw new RPNException("Operator is invalid!!!");
         }
 
-        if (operatorString.equals(RPNCaculator.CLEAR)) {
+        if (operatorString.equals(Context.CLEAR)) {
             clearStacks();
             return;
         }
 
-        if (operatorString.equals(RPNCaculator.UNDO)) {
+        if (operatorString.equals(Context.UNDO)) {
             undoOperand();
             return;
         }
@@ -113,7 +113,14 @@ public class RPNCaculator implements Caculator {
         if (result != null) {
             numberStack.push(result);
             if (!isUndo) {
-            	operandStack.push(new Operand(Context.getOperator(operatorString), firstOperand));
+                if(firstOperand == 0.0 && operatorString.equals("*"))
+                {
+                		operandStack.push(new Operand(Context.getOperator(operatorString), secondOperand, true));
+                }
+                else
+                {
+            			operandStack.push(new Operand(Context.getOperator(operatorString), firstOperand));
+                }
             }
         }		
 	}
@@ -128,7 +135,17 @@ public class RPNCaculator implements Caculator {
         if (lastOperand == NO_OPERAND) {
             numberStack.pop();
         } else {
-        		evaluate(lastOperand.getReverseInstruction(), true);
+        		//Fix the bug when last Operation is * and firstNumber is 0 when it execute "undo" 
+        		if(lastOperand.isZeroUndo() && lastOperand.getOperator().getSymbol().equals(Context.MULTIPLICATION))
+        		{
+        			numberStack.pop();
+        			numberStack.push((double) lastOperand.getValue());
+        			numberStack.push(ZERO);
+        		}
+        		else
+        		{
+        			evaluate(lastOperand.getReverseOperand(), true);
+        		}
         }
     }
 
