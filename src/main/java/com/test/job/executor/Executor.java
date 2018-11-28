@@ -44,8 +44,8 @@ public class Executor {
                 DecimalFormat df = new DecimalFormat("0.#####");
 
                 System.out.print("Stack: ");
-                for (Double value : stack) {
-                    System.out.print(df.format(value));
+                for (Double num : stack) {
+                    System.out.print(df.format(num));
                     System.out.print(" ");
                 }
                 System.out.printf("%n");
